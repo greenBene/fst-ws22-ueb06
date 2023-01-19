@@ -1,0 +1,25 @@
+# incl. all revisions
+p: Project = input;
+try_ratio: output collection[string] of float;
+all_statements:float;
+try_statements:float;
+
+try_counter := visitor {
+    before n: Statement -> {
+        all_statements = all_statements + 1;
+        if(n.kind == StatementKind.TRY) 
+            try_statements = try_statements + 1;
+    }
+};
+
+visit(p, visitor {
+    before n: CodeRepository -> {
+        all_statements = 0;
+        try_statements = 0;
+        snapshot := getsnapshot(n);
+        foreach(i :int; def(snapshot[i]))
+            visit(snapshot[i], try_counter);
+        try_ratio[p.project_url] << try_statements / all_statements;
+        stop;
+    }
+});
