@@ -12,7 +12,7 @@ def read_file(file, sample_size=None):
     names=['Variable', 'Project', 'Ratio'],
     engine='python',
     usecols=['Project', 'Ratio'],)
-    df['Ratio'] = df['Ratio'].replace(" NaN", 0)
+    df = df[df['Ratio'] != " NaN"]
     df['Ratio'] = pd.to_numeric(df['Ratio'])
     if(sample_size != None):
         df = df.sample(sample_size)
@@ -20,6 +20,7 @@ def read_file(file, sample_size=None):
 
 
 def main():
+    # Aufgabe 2 a)
     sample_size = 100_000
     significance_niveau = 0.01
 
@@ -47,6 +48,9 @@ def main():
     print("Are the results significant? " + str(results.pvalue < 0.01))
     print("Cohend's d (Effektstärke): " + cohens_d)
     print()
+
+    # Aufgabe 2 b)
+
     python_start = read_file('./python_ratio.txt', sample_size)
     java_start = read_file('./java_ratio.txt', sample_size)
 
@@ -86,6 +90,7 @@ def main():
             lower_bound = current_sample_size
     print()
 
+    # Aufgabe 3)
     python_try_statement_ratio_df = read_file('./python_ratio.txt')
     java_try_statement_ratio_df = read_file('./java_ratio.txt')
 
