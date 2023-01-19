@@ -21,7 +21,7 @@ def read_file(file, sample_size=None):
 
 def main():
     # Aufgabe 2 a)
-    sample_size = 100_000
+    sample_size = 10_000
     significance_niveau = 0.01
 
     python_try_statement_ratio_df = read_file('./python_ratio.txt', sample_size)
@@ -39,14 +39,14 @@ def main():
     results = mannwhitneyu(java_try_statement_ratio_df['Ratio'], python_try_statement_ratio_df['Ratio'])
 
     print("Aufgabe 2 a)")
-    print("Sample Size: " + sample_size)
+    print("Sample Size: " + str(sample_size))
     print('Python Try Statment Ratio Mean:' + str(python_try_statement_ratio_mean))
     print('Python Try Statment Ratio Variance:'+str(python_try_statement_ratio_variance))
     print('Java Try Statment Ratio Mean:' + str(java_try_statement_ratio_mean))
     print('Java Try Statment Ratio Variance:' + str(java_try_statement_ratio_variance))
     print("Mann-Whitney U Test p-value: " + str(results.pvalue))
     print("Are the results significant? " + str(results.pvalue < 0.01))
-    print("Cohend's d (Effektstärke): " + cohens_d)
+    print("Cohend's d (Effektstärke): " + str(cohens_d))
     print()
 
     # Aufgabe 2 b)
@@ -62,7 +62,7 @@ def main():
     python_full = read_file('./python_ratio.txt', sample_size)
     java_full = read_file('./java_ratio.txt', sample_size)
 
-    uppper_bound = 100_000
+    uppper_bound = 10_000
     lower_bound = 1
     test_per_iteration = 50
 
@@ -105,9 +105,6 @@ def main():
 
     print("Aufgabe 3")
     print(f"Cohend's d (Effektstärke) für alle Daten: {cohens_d}")
-
-    ### HIER SOLLTE IHR PROGRAMMKODE FOLGEN !!!
-
     return
 
 # Press the green button in the gutter to run the script.
