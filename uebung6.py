@@ -33,8 +33,8 @@ def main():
     java_try_statement_ratio_mean = java_try_statement_ratio_df['Ratio'].mean()
     java_try_statement_ratio_variance = java_try_statement_ratio_df['Ratio'].var()
 
-    cohens_d = abs(python_try_statement_ratio_mean - java_try_statement_ratio_mean) / \
-                math.sqrt((python_try_statement_ratio_variance+java_try_statement_ratio_variance)/2)
+    mwu = mannwhitneyu(java_try_statement_ratio_df['Ratio'], python_try_statement_ratio_df['Ratio'])
+    cliffs_d = (((2 * mwu.statistic) / (java_try_statement_ratio_df['Ratio'].count() * python_try_statement_ratio_df['Ratio'].count())) - 1)
 
     results = mannwhitneyu(java_try_statement_ratio_df['Ratio'], python_try_statement_ratio_df['Ratio'])
 
@@ -46,7 +46,7 @@ def main():
     print('Java Try Statment Ratio Variance:' + str(java_try_statement_ratio_variance))
     print("Mann-Whitney U Test p-value: " + str(results.pvalue))
     print("Are the results significant? " + str(results.pvalue < 0.01))
-    print("Cohend's d (Effektstärke): " + str(cohens_d))
+    print("Cohend's d (Effektstärke): " + str(cliffs_d))
     print()
 
     # Aufgabe 2 b)
@@ -100,11 +100,11 @@ def main():
     java_try_statement_ratio_mean = java_try_statement_ratio_df['Ratio'].mean()
     java_try_statement_ratio_variance = java_try_statement_ratio_df['Ratio'].var()
 
-    cohens_d = abs(python_try_statement_ratio_mean - java_try_statement_ratio_mean) / \
-                math.sqrt((python_try_statement_ratio_variance+java_try_statement_ratio_variance)/2)
+    mwu = mannwhitneyu(java_try_statement_ratio_df['Ratio'], python_try_statement_ratio_df['Ratio'])
+    cliffs_d = (((2 * mwu.statistic) / (java_try_statement_ratio_df['Ratio'].count() * python_try_statement_ratio_df['Ratio'].count())) - 1)
 
     print("Aufgabe 3")
-    print(f"Cohend's d (Effektstärke) für alle Daten: {cohens_d}")
+    print(f"Cliffs's d (Effektstärke): {cliffs_d}")
     return
 
 # Press the green button in the gutter to run the script.
